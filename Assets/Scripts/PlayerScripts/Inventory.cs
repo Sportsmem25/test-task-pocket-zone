@@ -56,16 +56,4 @@ public class Inventory : MonoBehaviour
 
         ui?.RefreshUI();
     }
-
-    //public void UseItem(string itemId, GameObject user)
-    //{
-    //    var item = ItemDatabase.Instance?.Get(itemId);
-    //    if (item == null)
-    //    {
-    //        Debug.LogWarning("UseItem: item not found: " + itemId);
-    //        return;
-    //    }
-    //    item.Use(user);
-    //    RemoveItem(itemId, 1);
-    //}
 }
