@@ -9,6 +9,6 @@ public class WeaponUI : MonoBehaviour
     private void Update()
     {
         if (weapon == null || ammoText == null) return;
-        ammoText.text = $"{weapon.currentAmmo}/{weapon.maxAmmo}";
+        ammoText.text = $"{weapon.CurrentAmmo}/{weapon.MaxAmmo}";
     }
 }

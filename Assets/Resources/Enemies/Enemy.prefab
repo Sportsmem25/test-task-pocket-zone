@@ -474,7 +474,6 @@ MonoBehaviour:
   detectRadius: 10
   attackRadius: 2.2
   attackCooldown: 1.5
-  dropChance1: 0.5
   attackDamage: 20
   dropPrefab: {fileID: 8298687339318151775, guid: a0eee971e48762140be12d61790d07bc, type: 3}
   dropPrefab2: {fileID: 6181812555569053765, guid: 7e0b5ae6c6de32c49a081203b402061e, type: 3}
@@ -537,12 +536,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb1b7c6f3ec62c478b01ad760589b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  onDie:
+  MaxHealth: 100
+  CurrentHealth: 0
+  OnDie:
     m_PersistentCalls:
       m_Calls: []
-  sliderHP: {fileID: 1759411918546630007}
+  SliderHP: {fileID: 1759411918546630007}
   canvasHP: {fileID: 1759411917065215947}
 --- !u!1 &1759411917874956606
 GameObject:

@@ -8,19 +8,19 @@ public static class SaveSystem
     [System.Serializable]
     public class EnemySave
     {
-        public string prefabName; 
-        public float x, y;
-        public bool alive;
-        public int health;
+        public string PrefabName; 
+        public float X, Y;
+        public bool IsAlive;
+        public int Health;
     }
 
     [System.Serializable]
     public class SaveData
     {
-        public float playerX, playerY;
-        public int playerHealth;
-        public List<InventorySlot> inventory;
-        public List<EnemySave> enemies;
+        public float PlayerX, PlayerY;
+        public int PlayerHealth;
+        public List<InventorySlot> Inventory;
+        public List<EnemySave> Enemies;
     }
 
 
@@ -42,35 +42,37 @@ public static class SaveSystem
     {
         try
         {
-            var playerGO = GameObject.FindWithTag("Player");
+            GameObject playerGO = GameObject.FindWithTag("Player");
             if (playerGO == null)
             {
                 Debug.LogWarning("Player not found by tag");
                 return;
             }
-            var inventory = playerGO.GetComponent<Inventory>();
-            var health = playerGO.GetComponent<Health>();
+            Inventory inventory = playerGO.GetComponent<Inventory>();
+            Health health = playerGO.GetComponent<Health>();
 
-            var sd = new SaveData();
-            sd.playerX = playerGO.transform.position.x;
-            sd.playerY = playerGO.transform.position.y;
-            sd.playerHealth = health != null ? health.currentHealth : 0;
-            sd.inventory = inventory != null ? new List<InventorySlot>(inventory.slots) : new List<InventorySlot>();
-            sd.enemies = new List<EnemySave>();
-            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            SaveData sd = new SaveData();
+            sd.PlayerX = playerGO.transform.position.x;
+            sd.PlayerY = playerGO.transform.position.y;
+            sd.PlayerHealth = health != null ? health.CurrentHealth : 0;
+            sd.Inventory = inventory != null ? new List<InventorySlot>(inventory.Slots) : new List<InventorySlot>();
+            sd.Enemies = new List<EnemySave>();
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            
             foreach (var e in enemies)
             {
-                var es = new EnemySave();
-                es.prefabName = e.name.Replace("(Clone)", "").Trim();
-                es.x = e.transform.position.x;
-                es.y = e.transform.position.y;
-                es.alive = e.activeSelf;
+                EnemySave es = new EnemySave();
+                es.PrefabName = e.name.Replace("(Clone)", "").Trim();
+                es.X = e.transform.position.x;
+                es.Y = e.transform.position.y;
+                es.IsAlive = e.activeSelf;
                 var h = e.GetComponent<Health>();
-                es.health = h != null ? h.currentHealth : 0;
-                sd.enemies.Add(es);
+                es.Health = h != null ? h.CurrentHealth : 0;
+                sd.Enemies.Add(es);
             }
-            var json = JsonUtility.ToJson(sd, true);
-            var dir = Path.GetDirectoryName(PathSave);
+
+            string json = JsonUtility.ToJson(sd, true);
+            string dir = Path.GetDirectoryName(PathSave);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
@@ -113,26 +115,27 @@ public static class SaveSystem
                 Debug.Log("No save file" + PathSave);
                 return;
             }
-            var json = File.ReadAllText(PathSave);
-            var sd = JsonUtility.FromJson<SaveData>(json);
+
+            string json = File.ReadAllText(PathSave);
+            SaveData sd = JsonUtility.FromJson<SaveData>(json);
 
             // Загрузка данных игрока
-            var playerGO = GameObject.FindWithTag("Player");
-            playerGO.transform.position = new Vector3(sd.playerX, sd.playerY, 0f);
-            var health = playerGO.GetComponent<Health>();
+            GameObject playerGO = GameObject.FindWithTag("Player");
+            playerGO.transform.position = new Vector3(sd.PlayerX, sd.PlayerY, 0f);
+            Health health = playerGO.GetComponent<Health>();
             if (health != null)
             {
-                health.currentHealth = Mathf.Clamp(sd.playerHealth, 0, health.maxHealth);
-                if (health.sliderHP != null)
-                    health.sliderHP.value = health.currentHealth;
+                health.CurrentHealth = Mathf.Clamp(sd.PlayerHealth, 0, health.MaxHealth);
+                if (health.SliderHP != null)
+                    health.SliderHP.value = health.CurrentHealth;
             }
-            var inventory = playerGO.GetComponent<Inventory>();
+            Inventory inventory = playerGO.GetComponent<Inventory>();
             if (inventory != null)
             {
-                inventory.slots = sd.inventory != null ? new List<InventorySlot>(sd.inventory) : new List<InventorySlot>();
-                if (inventory.ui == null)
-                    inventory.ui = GameObject.FindObjectOfType<InventoryUI>();
-                inventory.ui?.RefreshUI();
+                inventory.Slots = sd.Inventory != null ? new List<InventorySlot>(sd.Inventory) : new List<InventorySlot>();
+                if (inventory.Ui == null)
+                    inventory.Ui = GameObject.FindObjectOfType<InventoryUI>();
+                inventory.Ui?.RefreshUI();
             }
             else
                 Debug.LogWarning("Player not found by tag 'Player'");
@@ -142,28 +145,28 @@ public static class SaveSystem
             foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
                 GameObject.Destroy(e);
 
-            if (sd.enemies != null)
+            if (sd.Enemies != null)
             {
-                foreach (var es in sd.enemies)
+                foreach (var es in sd.Enemies)
                 {
-                    var prefab = Resources.Load<GameObject>("Enemies/" + es.prefabName);
+                    GameObject prefab = Resources.Load<GameObject>("Enemies/" + es.PrefabName);
                     if (prefab != null)
                     {
-                        var go = GameObject.Instantiate(prefab, new Vector3(es.x, es.y, 0f), Quaternion.identity);
-                        go.SetActive(es.alive);
-                        var h = go.GetComponent<Health>();
+                        GameObject go = GameObject.Instantiate(prefab, new Vector3(es.X, es.Y, 0f), Quaternion.identity);
+                        go.SetActive(es.IsAlive);
+                        Health h = go.GetComponent<Health>();
                         if (h != null)
                         {
-                            if (!es.alive)
-                                h.currentHealth = 0;
+                            if (!es.IsAlive)
+                                h.CurrentHealth = 0;
                             else
-                                h.currentHealth = h.maxHealth;
-                            if (h.sliderHP != null)
-                                h.sliderHP.value = h.currentHealth;
+                                h.CurrentHealth = h.MaxHealth;
+                            if (h.SliderHP != null)
+                                h.SliderHP.value = h.CurrentHealth;
                         }
                     }
                     else
-                        Debug.LogWarning("Prefab not found in Resources/Enemies: " + es.prefabName);
+                        Debug.LogWarning("Prefab not found in Resources/Enemies: " + es.PrefabName);
                 }
             }
             Debug.Log("Loaded save from " + PathSave);

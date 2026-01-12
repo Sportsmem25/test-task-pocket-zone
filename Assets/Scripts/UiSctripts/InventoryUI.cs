@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    public Inventory inventory;
-    public Transform slotsParent;
-    public GameObject slotPrefab;
-    List<GameObject> uiSlots = new List<GameObject>();
+    [SerializeField] private Transform slotsParent;
+    [SerializeField] private GameObject slotPrefab;
+
+    private Inventory inventory;
+    private List<GameObject> uiSlots = new List<GameObject>();
 
     private void Start()
     {
@@ -22,20 +23,20 @@ public class InventoryUI : MonoBehaviour
         foreach (Transform t in slotsParent) Destroy(t.gameObject);
         uiSlots.Clear();
 
-        foreach (var slot in inventory.slots)
+        foreach (var slot in inventory.Slots)
         {
-            var item = ItemDatabase.Instance?.Get(slot.itemId);
+            Item item = ItemDatabase.Instance?.Get(slot.itemId);
             if (item == null) continue;
-            var prefabToUse = item.uiSlotPrefab != null ? item.uiSlotPrefab : slotPrefab;
-            var go = Instantiate(prefabToUse, slotsParent);
+            GameObject prefabToUse = item.UiSlotPrefab != null ? item.UiSlotPrefab : slotPrefab;
+            GameObject go = Instantiate(prefabToUse, slotsParent);
 
-            var icon = go.transform.Find("Icon")?.GetComponent<Image>();
-            var countText = go.transform.Find("Count")?.GetComponent<Text>();
-            var deleteBtnGO = go.transform.Find("DeleteButton")?.GetComponent<Button>();
-            var slotButton = go.GetComponent<Button>();
+            Image icon = go.transform.Find("Icon")?.GetComponent<Image>();
+            Text countText = go.transform.Find("Count")?.GetComponent<Text>();
+            Button deleteBtnGO = go.transform.Find("DeleteButton")?.GetComponent<Button>();
+            Button slotButton = go.GetComponent<Button>();
 
-            if (icon != null && item.icon != null)
-                icon.sprite = item.icon;
+            if (icon != null && item.Icon != null)
+                icon.sprite = item.Icon;
 
             if (countText != null) 
                 countText.text = slot.count > 1 ? slot.count.ToString() : "";

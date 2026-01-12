@@ -3,11 +3,12 @@ using UnityEngine.EventSystems;
 
 public class JoystickUI : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-    public RectTransform background;
-    public RectTransform handler;
-    public float handleRange = 50f;
-    public Vector2 input = Vector2.zero;
-    Vector2 bgCenterScreen;
+    [SerializeField] private RectTransform background;
+    [SerializeField] private RectTransform handler;
+
+    private float handleRange = 50f;
+    private Vector2 input = Vector2.zero;
+    private Vector2 bgCenterScreen;
 
     private void Start()
     {
@@ -36,7 +37,7 @@ public class JoystickUI : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         // Ограничение по радиусу handleRange
         if (delta.magnitude > handleRange) delta = delta.normalized * handleRange;
 
-        // Переводим handle в локальные координаты background'а)
+        // Переводим handle в локальные координаты background'а
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(background, bgCenterScreen + delta, eventData.pressEventCamera, out localPoint);
         handler.anchoredPosition = localPoint;

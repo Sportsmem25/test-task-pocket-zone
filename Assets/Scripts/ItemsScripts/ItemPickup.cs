@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    public string itemID;
-    public int amount = 1;
+    private int amount = 1;
+    private string itemID;
     private bool isPickedUp = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isPickedUp) return;
 
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject.layer == 3)
         {
-            var inventory = collision.GetComponent<Inventory>();
+            Debug.Log("Столкнулись с игроком");
+            Inventory inventory = collision.GetComponent<Inventory>();
             if (inventory != null)
             {
                 var item = ItemDatabase.Instance.Get(itemID);
@@ -22,7 +23,7 @@ public class ItemPickup : MonoBehaviour
                     if (added)
                     {
                         isPickedUp = true;
-                        inventory.ui?.RefreshUI();
+                        inventory.Ui?.RefreshUI();
                         Destroy(gameObject);
                     }
                     else

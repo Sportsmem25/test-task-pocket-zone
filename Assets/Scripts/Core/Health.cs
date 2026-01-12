@@ -4,16 +4,17 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
-    public UnityEvent onDie;
-    public Slider sliderHP;
-    public GameObject canvasHP;
+    public int MaxHealth = 100;
+    public int CurrentHealth;
+    public UnityEvent OnDie;
+    public Slider SliderHP;
+
+    [SerializeField] private GameObject canvasHP;
 
     private void Awake()
     {
-        currentHealth = maxHealth;
-        sliderHP.value = currentHealth;
+        CurrentHealth = MaxHealth;
+        SliderHP.value = CurrentHealth;
     }
 
     private void Update()
@@ -28,15 +29,15 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (damage <= 0) return;
-        currentHealth -= damage;
-        sliderHP.value = currentHealth;
-        if (currentHealth <= 0) 
+        CurrentHealth -= damage;
+        SliderHP.value = CurrentHealth;
+        if (CurrentHealth <= 0) 
         { 
-            currentHealth = 0; 
+            CurrentHealth = 0; 
             Dead();
-            if (CompareTag("Player"))
+            if (gameObject.layer == 3)
             {
-                var goUI = FindObjectOfType<GameOverUI>();
+                GameOverUI goUI = FindObjectOfType<GameOverUI>();
                 if (goUI != null) goUI.ShowGameOver();
             }
         }
@@ -45,15 +46,15 @@ public class Health : MonoBehaviour
     public void Heal(int amount)
     {
         if (amount <= 0) return;
-        currentHealth += amount;
-        if(currentHealth > maxHealth)
-            currentHealth = maxHealth;
+        CurrentHealth += amount;
+        if(CurrentHealth > MaxHealth)
+            CurrentHealth = MaxHealth;
     }
 
-    public bool IsDead() => currentHealth <= 0;
+    public bool IsDead() => CurrentHealth <= 0;
 
     private void Dead()
     {
-        onDie?.Invoke();
+        OnDie?.Invoke();
     }
 }

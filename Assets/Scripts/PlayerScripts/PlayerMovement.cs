@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 3f;
-    public Rigidbody2D rb;
-
+    private Rigidbody2D rb;
     private Weapon weapon;
     private bool isFacingRight = true;
+    private float speed = 3f;
 
     private void Awake()
     {
@@ -36,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveRight == isFacingRight) return;
         isFacingRight = moveRight;
         transform.localScale = new Vector3(isFacingRight ? 1f : -1f, 1f, 1f);
-        if (weapon?.firePoint != null)
-            weapon.firePoint.transform.Rotate(0f, 180f, 0f);
+        if (weapon?.FirePoint != null)
+            weapon.FirePoint.transform.Rotate(0f, 180f, 0f);
     }
 }

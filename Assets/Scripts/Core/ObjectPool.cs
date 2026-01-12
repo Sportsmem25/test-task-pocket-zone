@@ -7,12 +7,15 @@ public class ObjectPool : MonoBehaviour
 
     [System.Serializable]
     public class PoolEntry { public string key; public GameObject prefab; public int initial = 10; };
-    public PoolEntry[] entries;
+
+    [SerializeField] private PoolEntry[] entries;
+
     private Dictionary<string, Queue<GameObject>> pools = new Dictionary<string, Queue<GameObject>>();
 
     private void Awake()
     {
         if (Instance == null) Instance = this; else Destroy(gameObject);
+        
         foreach (var e in entries)
         {
             var q = new Queue<GameObject>();

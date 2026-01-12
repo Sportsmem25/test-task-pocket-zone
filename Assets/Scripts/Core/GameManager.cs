@@ -3,9 +3,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public GameObject enemyPrefab;
-    public int enemyCount = 3;
-    public Vector2 spawnMin, spawnMax;
+    
+    [SerializeField] private GameObject enemyPrefab;
+
+    private int enemyCount = 3;
+    private Vector2 spawnMin = new Vector2(-5f, -10f);
+    private Vector2 spawnMax = new Vector2(25f, 10f);
 
     private void Awake()
     {

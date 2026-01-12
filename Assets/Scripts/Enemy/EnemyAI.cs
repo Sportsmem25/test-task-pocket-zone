@@ -2,23 +2,24 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public float speed;
-    public float detectRadius;
-    public float attackRadius;
-    public float attackCooldown = 2f;
-    [Range(0f, 1f)] public float dropChance1 = 0.5f;
-    public int attackDamage = 10;
-    public GameObject dropPrefab;
-    public GameObject dropPrefab2;
+    [SerializeField] private float speed;
+    [SerializeField] private float detectRadius;
+    [SerializeField] private float attackRadius;
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private int attackDamage = 10;
+    [SerializeField] private GameObject dropPrefab;
+    [SerializeField] private GameObject dropPrefab2;
+
     private Transform target;
     private Health health;
     private float attackTimer;
+    private float dropChance1 = 0.5f;
     private bool isFacingRight = true;
 
     private void Start()
     {
         health = GetComponent<Health>();
-        health.onDie.AddListener(OnDie);
+        health.OnDie.AddListener(OnDie);
     }
 
     private void Update()
@@ -40,7 +41,7 @@ public class EnemyAI : MonoBehaviour
             Flip(dir.x);
             if (dist <= attackRadius && attackTimer <= 0)
             {
-                var pHealth = target.GetComponent<Health>();
+                Health pHealth = target.GetComponent<Health>();
                 if (pHealth != null) pHealth.TakeDamage(attackDamage);
                 attackTimer = attackCooldown;
             }
@@ -49,7 +50,7 @@ public class EnemyAI : MonoBehaviour
 
     private Vector2 GetTargetCenter(Transform t)
     {
-        var col = t.GetComponent<Collider2D>();
+        Collider2D col = t.GetComponent<Collider2D>();
         if (col != null)
             return col.bounds.center;
 

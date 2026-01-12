@@ -2,10 +2,10 @@ using UnityEngine;
 
 public abstract class Item : ScriptableObject
 {
-    public string id;
-    public string displayName;
-    public Sprite icon;
-    public int maxStack = 99;
-    public GameObject uiSlotPrefab;
+    public string Id;
+    public string DisplayName;
+    public Sprite Icon;
+    public int MaxStack = 99;
+    public GameObject UiSlotPrefab;
     public abstract void Use(GameObject user);
 }

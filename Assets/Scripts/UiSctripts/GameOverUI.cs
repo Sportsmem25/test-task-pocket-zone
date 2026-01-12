@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameOverUI : MonoBehaviour
 {
-    public GameObject gameOverPanel;
+    [SerializeField] private GameObject gameOverPanel;
 
     private void Start()
     {

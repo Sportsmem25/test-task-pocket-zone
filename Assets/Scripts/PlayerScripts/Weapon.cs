@@ -3,25 +3,26 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public Transform firePoint;
-    public string bulletPoolKey = "bullet";
-    public bool isReloading = false;
-    public int currentAmmo = 10;
-    public int maxAmmo = 30;
-    public float fireRate = 0.3f;
-    public float reloadTime = 2f;
+    public Transform FirePoint;
+    public int CurrentAmmo = 10;
+    public int MaxAmmo = 30;
+
+    private bool isReloading = false;
+    private string bulletPoolKey = "bullet";
+    private float fireRate = 0.3f;
+    private float reloadTime = 2f;
     private float _cooldown;
 
     private void Start()
     {
-        currentAmmo = maxAmmo;
+        CurrentAmmo = MaxAmmo;
     }
 
     private void Update()
     {
         if (isReloading) return;
         _cooldown -= Time.deltaTime;
-        if(currentAmmo <= 0 && !isReloading)
+        if(CurrentAmmo <= 0 && !isReloading)
         {
             StartCoroutine(Reload());
         }
@@ -32,7 +33,7 @@ public class Weapon : MonoBehaviour
         if (isReloading) return;
         if (_cooldown > 0) return;
 
-        currentAmmo--;
+        CurrentAmmo--;
         _cooldown = fireRate;
         if (ObjectPool.Instance == null)
         {
@@ -41,8 +42,8 @@ public class Weapon : MonoBehaviour
         }
         var bullet = ObjectPool.Instance.Get(bulletPoolKey);
         if (bullet == null) return;
-        bullet.transform.position = firePoint.position;
-        bullet.transform.rotation = firePoint.rotation;
+        bullet.transform.position = FirePoint.position;
+        bullet.transform.rotation = FirePoint.rotation;
         var b = bullet.GetComponent<Bullet>();
         if (b != null) 
             b.OnSpawn();
@@ -57,7 +58,7 @@ public class Weapon : MonoBehaviour
 
     public void AddAmmo(int amount)
     {
-        currentAmmo = Mathf.Min(maxAmmo, currentAmmo + amount);
+        CurrentAmmo = Mathf.Min(MaxAmmo, CurrentAmmo + amount);
     }
 
     public void OnEnable()
@@ -78,7 +79,7 @@ public class Weapon : MonoBehaviour
         Debug.Log($"Reloading... ({reloadTime}s)");
         yield return new WaitForSeconds(reloadTime);
 
-        currentAmmo = maxAmmo;
+        CurrentAmmo = MaxAmmo;
         isReloading = false;
         Debug.Log("Reload complete");
     }

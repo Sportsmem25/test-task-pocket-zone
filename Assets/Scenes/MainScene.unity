@@ -19145,7 +19145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02bebbb6f8d969b4b8187f2c2fe49420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 931391628}
   slotsParent: {fileID: 209514826}
   slotPrefab: {fileID: 507365481899081838, guid: 77b471cbdbfd5a540935b0758ccfa6c4, type: 3}
 --- !u!114 &700625502
@@ -74784,8 +74783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a1add9871a54640a03d9bd3133bc6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rb: {fileID: 931391623}
 --- !u!114 &931391625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74827,13 +74824,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2ceaeb44494aa418aef546659f6ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 1947918782}
-  bulletPoolKey: bullet
-  isReloading: 0
-  currentAmmo: 10
-  maxAmmo: 30
-  fireRate: 0.3
-  reloadTime: 1
+  FirePoint: {fileID: 1947918782}
+  CurrentAmmo: 10
+  MaxAmmo: 30
 --- !u!114 &931391628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74846,9 +74839,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15674e7e4b263c74fa70046a14870763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 20
-  slots: []
-  ui: {fileID: 0}
+  Slots: []
+  Ui: {fileID: 0}
 --- !u!114 &931391629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74861,12 +74853,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb1b7c6f3ec62c478b01ad760589b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  onDie:
+  MaxHealth: 100
+  CurrentHealth: 0
+  OnDie:
     m_PersistentCalls:
       m_Calls: []
-  sliderHP: {fileID: 1277500526}
+  SliderHP: {fileID: 1277500526}
   canvasHP: {fileID: 2118137536}
 --- !u!1 &933588149
 GameObject:
@@ -75094,8 +75086,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 940159005}
   handler: {fileID: 310392753}
-  handleRange: 50
-  input: {x: 0, y: 0}
 --- !u!1 &946728618
 GameObject:
   m_ObjectHideFlags: 0
@@ -75385,9 +75375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f9c5182594c474bb631c02fd09244c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 054499d41076b2e43a2136b83d98c724, type: 2}
-  - {fileID: 11400000, guid: bfdc8025f9e05784fb2f39d4721debb0, type: 2}
+  Items: []
 --- !u!4 &1039166715
 Transform:
   m_ObjectHideFlags: 0
@@ -75433,9 +75421,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1759411917527290378, guid: db099439bcdc9f647aa1c245be381b75, type: 3}
-  enemyCount: 3
-  spawnMin: {x: -10, y: -10}
-  spawnMax: {x: 20, y: 10}
 --- !u!4 &1042359052
 Transform:
   m_ObjectHideFlags: 0

@@ -3,9 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour
 {
-    public float speed = 12f;
-    public int damage = 25;
-    public float lifeTime = 3f;
+    private float speed = 12f;
+    private int damage = 25;
+    private float lifeTime = 3f;
     private Rigidbody2D rb;
     private float timer;
     private string poolKey = "bullet";
@@ -31,9 +31,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.gameObject.layer == 7)
         {
-            var health = collision.GetComponent<Health>();
+            Health health = collision.GetComponent<Health>();
             if (health != null)
                 health.TakeDamage(damage);
         }
