@@ -1,21 +1,23 @@
-This project was implemented according to the following task in the test assignment:
-Use Unity 2021.3.26f1 to create the implemented project:
-1. Create a TileMap for your character to navigate.
-2. Place the following buttons in the lower right half of the screen:
-- "Shoot" button (consumes ammo);
-- "Backpack" button (inventory, which displays the current inventory of items, each item is stored in a separate slot);
-- "Joystick" button on the remote control (controls character movement);
-- "Remove item from backpack" button (clicking on an item in the backpack displays a "Remove" button; clicking it removes the item).
-3. The inventory slot contains the following visual information: item icon (varies depending on the item),
-number of items in a stack (if there is only one item, do not display the number).
-4. Character controls:
-- character movement in the direction of the joystick button;
-- firing a weapon when approaching an enemy using the "shoot" button;
-- character health (displayed as a bar above the character; upon receiving damage, it decreases, and at 0, the character dies);
-- picking up an item and its appearance in the inventory.
-Monster:
-- spawning 3 monsters in random locations on the map;
-- monster health (displayed as a bar above the monster; upon receiving damage, it decreases, and at 0, the monster dies);
-- when a player approaches a monster's line of sight, the monster must approach the player and attack;
-- spawning an item from a monster after its death.
-The assets used in the project were provided by a potential employer.
+Данный проект был реализован в рамках тестового задания.
+Используя Unity 2021.3.26f1 создайте проект с сценой:
+1. Создать тайл мэп карту для дальнейшего перемещения по ней персонажа.
+2. Создать в правой нижней половине экрана следующие кнопки:
+- "Выстрелить" (тратится патрон);
+- "Рюкзак" (инвентарь - место в котором отображается наличие предметов, каждый предмет в отдельной ячейке);
+- "Джойстик" в левом нижнем углу экрана (управляет перемещением персонажа);
+- "Удалить предмет из рюкзака" (При нажатии на предмет в рюкзаке, появляется кнопка удалить, после нажатия предмет пропадает).
+3. В слоте инвентаря содержится следующая визуальная информация: иконка предмета (меняется в зависимости от предмета), количество предметов в стаке (если один - не отображать количество).
+4. Управление персонажем:
+- персонаж двигается по направлению джойстика;
+- персонаж стреляет из оружия при приближении к противнику;
+- персонаж имеет здоровье (при получения урона она уменьшается, при 0 персонаж умирает);
+- персонаж может подбирать предметы, предмет появляется в инвентаре.
+Монстр:
+- появление 3 монстров в случайных местах на карте;
+- здоровье монстра (отображается в виде полоски над монстром; при получении урона оно уменьшается, и при достижении 0 монстр умирает);;
+- при приближение игрока в зону видимости монстра - монстр должен приблизиться к игроку и атаковать;
+- появление предмета из монстра после его смерти.
+5. Данные должны сохраняться между сессиями (не в playerPrefs).
+
+Ресурсы, использованные в проекте, были предоставлены потенциальным работодателем.
+В проекте реализован паттерн проектирования ObjectPool; логика персонажа разделена на ввод и перемещение; сохранение данных реализовано в JSON.
